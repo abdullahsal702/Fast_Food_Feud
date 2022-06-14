@@ -31,11 +31,25 @@ export function App() {
   const [restaurant_state, setRestaurant] = useState(null)
   const [menu_item_state, setMenuItem] = useState(null)
 
-
-
   let currentMenuItems = data.filter((element) => {
    return (element.food_category==category_state&&element.restaurant==restaurant_state)
   })
+
+  function getInstructions(selectedCategory, selectedRestaurant, selectedItem){
+    if (selectedCategory!=null&&selectedRestaurant!=null){
+      if (selectedItem!=null) {
+        return appInfo.instructions.allSelected
+      } else {
+        return appInfo.instructions.noSelectedItem
+      }
+    } else if (selectedCategory!=null) {
+      return appInfo.instructions.onlyCategory
+    } else if (selectedRestaurant!=null) {
+      return appInfo.instructions.onlyRestaurant
+    } else {
+      return appInfo.instructions.start
+    }
+  }
 
   return (
     <main className="App">
@@ -65,7 +79,7 @@ export function App() {
         </div>
 
         {/* INSTRUCTIONS GO HERE */}
-        <Instructions instructions={appInfo.instructions.start}/>
+        <Instructions instructions={getInstructions(category_state, restaurant_state, menu_item_state)}/>
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
@@ -78,7 +92,7 @@ export function App() {
 
           {/* NUTRITION FACTS */}
           <div className="NutritionFacts nutrition-facts">
-            {menu_item_state != null && <NutritionalLabel item={menu_item_state}/>}
+            {menu_item_state != null ? <NutritionalLabel item={menu_item_state}/> : null}
           </div>
 
         </div>

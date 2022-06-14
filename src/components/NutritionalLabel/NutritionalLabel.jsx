@@ -11,7 +11,7 @@ export function NutritionalLabel(props) {
 
       <ul className="fact-list">
       {nutritionFacts.map((fact) => 
-        <NutritionalLabel label={fact.label} attribute={fact.attribute} key={fact.id}/>
+        <NutritionalLabelFact menuItem={props.item} label={fact.label} attribute={fact.attribute} key={fact.id}/>
       )} 
       </ul>
     </div>
@@ -21,8 +21,8 @@ export function NutritionalLabel(props) {
 export function NutritionalLabelFact(props) {
   return (
     <li className="nutrition-fact">
-      <span className="fact-label">{/* WRITE CODE HERE */}</span>{" "}
-      <span className="fact-value">{/* WRITE CODE HERE */}</span>
+      <span className="fact-label">{props.label}</span>{" "}
+      <span className="fact-value">{props.menuItem[props.attribute]}</span>
     </li>
   )
 }
